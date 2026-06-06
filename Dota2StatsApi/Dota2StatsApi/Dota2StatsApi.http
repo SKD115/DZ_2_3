@@ -1,0 +1,6 @@
+@Dota2StatsApi_HostAddress = http://localhost:5239
+
+GET {{Dota2StatsApi_HostAddress}}/weatherforecast/
+Accept: application/json
+
+###
