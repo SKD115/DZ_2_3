@@ -1,94 +1,124 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Diagnostics;
-using System.IO;
-using System.Linq;
-using System.Threading;
+using System.Net.Http;
+using System.Threading.Tasks;
 
 class Program
 {
-    private const int MAX_CONCURRENT = 3;
-
-    private static readonly Semaphore semaphore = new Semaphore(MAX_CONCURRENT, MAX_CONCURRENT);
-    private static readonly object resultsLocker = new object();
-    private static readonly Mutex totalMutex = new Mutex();
-
-    private static List<string> results = new List<string>();
-    private static long grandTotal = 0;
-
-    static void Main()
+    static async Task Main()
     {
-        string[] lines = File.ReadAllLines("numbers_sets.txt");
-        if (lines.Length != 15)
-        {
-            Console.WriteLine("Ошибка: ожидалось 15 наборов");
-            return;
-        }
+        Console.WriteLine("Задание 2");
+        Console.WriteLine("1 - Synchronous");
+        Console.WriteLine("2 - Async");
+        Console.Write("Введите номер версии: ");
 
+        string choice = Console.ReadLine();
+
+        switch (choice)
+        {
+            case "1":
+                RunSynchronous();
+                break;
+            case "2":
+                await RunAsync();
+                break;
+            default:
+                Console.WriteLine("Неверный выбор.");
+                break;
+        }
+    }
+
+    static void RunSynchronous()
+    {
         Stopwatch sw = Stopwatch.StartNew();
 
-        Thread[] threads = new Thread[15];
-
-        for (int i = 0; i < 15; i++)
+        string[] urls = new string[]
         {
-            int setNumber = i + 1;
-            string numbersLine = lines[i];
+            "https://jsonplaceholder.typicode.com/posts/1",
+            "https://jsonplaceholder.typicode.com/users/1",
+            "https://jsonplaceholder.typicode.com/todos/1"
+        };
 
-            threads[i] = new Thread(() => ProcessSet(setNumber, numbersLine));
-            threads[i].Start();
-        }
-
-        foreach (var t in threads)
+        using (HttpClient client = new HttpClient())
         {
-            t.Join();
+            for (int i = 0; i < urls.Length; i++)
+            {
+                Console.WriteLine($"\nЗапрос {i + 1} к: {urls[i]}");
+
+                try
+                {
+                    HttpResponseMessage response = client.GetAsync(urls[i]).Result;
+
+                    if (!response.IsSuccessStatusCode)
+                    {
+                        Console.WriteLine($"Ошибка! Статус: {(int)response.StatusCode} {response.ReasonPhrase}");
+                        continue;
+                    }
+
+                    string json = response.Content.ReadAsStringAsync().Result;
+                    Console.WriteLine("Ответ от сервера (JSON):");
+                    Console.WriteLine(json);
+                }
+                catch (Exception ex)
+                {
+                    Console.WriteLine($"Произошла ошибка при запросе: {ex.Message}");
+                }
+            }
         }
 
         sw.Stop();
-
-        Console.WriteLine();
-        foreach (var res in results)
-        {
-            Console.WriteLine(res);
-        }
-
-        Console.WriteLine();
-        Console.WriteLine($"Общий итог всех сумм: {grandTotal}");
-        Console.WriteLine($"Время выполнения: {sw.ElapsedMilliseconds} мс");
+        Console.WriteLine($"\nОбщее время выполнения: {sw.ElapsedMilliseconds} мс");
     }
 
-    static void ProcessSet(int setNumber, string numbersLine)
+    static async Task RunAsync()
     {
-        semaphore.WaitOne();
+        Stopwatch sw = Stopwatch.StartNew();
+
+        string[] urls = new string[]
+        {
+            "https://jsonplaceholder.typicode.com/posts/1",
+            "https://jsonplaceholder.typicode.com/users/1",
+            "https://jsonplaceholder.typicode.com/todos/1"
+        };
+
+        using (HttpClient client = new HttpClient())
+        {
+            Task[] tasks = new Task[urls.Length];
+
+            for (int i = 0; i < urls.Length; i++)
+            {
+                int index = i;
+                tasks[i] = FetchAndPrintAsync(client, urls[index], index + 1);
+            }
+
+            await Task.WhenAll(tasks);
+        }
+
+        sw.Stop();
+        Console.WriteLine($"\nОбщее время выполнения: {sw.ElapsedMilliseconds} мс");
+    }
+
+    static async Task FetchAndPrintAsync(HttpClient client, string url, int requestNumber)
+    {
+        Console.WriteLine($"\nЗапрос {requestNumber} к: {url}");
+
         try
         {
-            int threadId = Thread.CurrentThread.ManagedThreadId;
+            HttpResponseMessage response = await client.GetAsync(url);
 
-            int[] numbers = numbersLine.Split(new[] { ' ' }, StringSplitOptions.RemoveEmptyEntries)
-                                       .Select(int.Parse)
-                                       .ToArray();
-
-            long sum = numbers.Sum();
-
-            lock (resultsLocker)
+            if (!response.IsSuccessStatusCode)
             {
-                results.Add($"Набор {setNumber}: сумма = {sum}, поток = {threadId}");
+                Console.WriteLine($"Ошибка! Статус: {(int)response.StatusCode} {response.ReasonPhrase}");
+                return;
             }
 
-            totalMutex.WaitOne();
-            try
-            {
-                grandTotal += sum;
-            }
-            finally
-            {
-                totalMutex.ReleaseMutex();
-            }
-
-            Console.WriteLine($"[Набор {setNumber}] Завершён в потоке {threadId}, сумма = {sum}");
+            string json = await response.Content.ReadAsStringAsync();
+            Console.WriteLine("Ответ от сервера (JSON):");
+            Console.WriteLine(json);
         }
-        finally
+        catch (Exception ex)
         {
-            semaphore.Release();
+            Console.WriteLine($"Произошла ошибка при запросе: {ex.Message}");
         }
     }
 }
