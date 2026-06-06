@@ -1,0 +1,14 @@
+C:\Users\Admin\source\repos\complexnumber\complexnumber\bin\Debug\net8.0\complexnumber.exe
+C:\Users\Admin\source\repos\complexnumber\complexnumber\bin\Debug\net8.0\complexnumber.deps.json
+C:\Users\Admin\source\repos\complexnumber\complexnumber\bin\Debug\net8.0\complexnumber.runtimeconfig.json
+C:\Users\Admin\source\repos\complexnumber\complexnumber\bin\Debug\net8.0\complexnumber.dll
+C:\Users\Admin\source\repos\complexnumber\complexnumber\bin\Debug\net8.0\complexnumber.pdb
+C:\Users\Admin\source\repos\complexnumber\complexnumber\obj\Debug\net8.0\complexnumber.GeneratedMSBuildEditorConfig.editorconfig
+C:\Users\Admin\source\repos\complexnumber\complexnumber\obj\Debug\net8.0\complexnumber.AssemblyInfoInputs.cache
+C:\Users\Admin\source\repos\complexnumber\complexnumber\obj\Debug\net8.0\complexnumber.AssemblyInfo.cs
+C:\Users\Admin\source\repos\complexnumber\complexnumber\obj\Debug\net8.0\complexnumber.csproj.CoreCompileInputs.cache
+C:\Users\Admin\source\repos\complexnumber\complexnumber\obj\Debug\net8.0\complexnumber.dll
+C:\Users\Admin\source\repos\complexnumber\complexnumber\obj\Debug\net8.0\refint\complexnumber.dll
+C:\Users\Admin\source\repos\complexnumber\complexnumber\obj\Debug\net8.0\complexnumber.pdb
+C:\Users\Admin\source\repos\complexnumber\complexnumber\obj\Debug\net8.0\complexnumber.genruntimeconfig.cache
+C:\Users\Admin\source\repos\complexnumber\complexnumber\obj\Debug\net8.0\ref\complexnumber.dll

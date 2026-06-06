@@ -1,0 +1,14 @@
+C:\Users\Admin\source\repos\PortAdapter\PortAdapter\bin\Debug\net8.0\PortAdapter.exe
+C:\Users\Admin\source\repos\PortAdapter\PortAdapter\bin\Debug\net8.0\PortAdapter.deps.json
+C:\Users\Admin\source\repos\PortAdapter\PortAdapter\bin\Debug\net8.0\PortAdapter.runtimeconfig.json
+C:\Users\Admin\source\repos\PortAdapter\PortAdapter\bin\Debug\net8.0\PortAdapter.dll
+C:\Users\Admin\source\repos\PortAdapter\PortAdapter\bin\Debug\net8.0\PortAdapter.pdb
+C:\Users\Admin\source\repos\PortAdapter\PortAdapter\obj\Debug\net8.0\PortAdapter.GeneratedMSBuildEditorConfig.editorconfig
+C:\Users\Admin\source\repos\PortAdapter\PortAdapter\obj\Debug\net8.0\PortAdapter.AssemblyInfoInputs.cache
+C:\Users\Admin\source\repos\PortAdapter\PortAdapter\obj\Debug\net8.0\PortAdapter.AssemblyInfo.cs
+C:\Users\Admin\source\repos\PortAdapter\PortAdapter\obj\Debug\net8.0\PortAdapter.csproj.CoreCompileInputs.cache
+C:\Users\Admin\source\repos\PortAdapter\PortAdapter\obj\Debug\net8.0\PortAdapter.dll
+C:\Users\Admin\source\repos\PortAdapter\PortAdapter\obj\Debug\net8.0\refint\PortAdapter.dll
+C:\Users\Admin\source\repos\PortAdapter\PortAdapter\obj\Debug\net8.0\PortAdapter.pdb
+C:\Users\Admin\source\repos\PortAdapter\PortAdapter\obj\Debug\net8.0\PortAdapter.genruntimeconfig.cache
+C:\Users\Admin\source\repos\PortAdapter\PortAdapter\obj\Debug\net8.0\ref\PortAdapter.dll
